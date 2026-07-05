@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ХохлоБарон — медицинская библиотека и сообщество</title>
+  <meta name="description" content="Тысячи медицинских книг и умный ИИ-библиотекарь, который мгновенно находит нужное. Закрытое сообщество для тех, кто хочет понять своё тело и мир." />
+
+  <!-- Иконки -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+  <!-- Open Graph / превью при пересылке в мессенджерах -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ХохлоБарон" />
+  <meta property="og:url" content="https://khokhlobaron.netlify.app/" />
+  <meta property="og:title" content="ХохлоБарон — медицинская библиотека и сообщество" />
+  <meta property="og:description" content="Тысячи медицинских книг и умный ИИ-библиотекарь, который мгновенно находит нужное. Закрытое сообщество." />
+  <meta property="og:image" content="https://khokhlobaron.netlify.app/og-image-v2.jpg" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="1024" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ХохлоБарон — медицинская библиотека и сообщество" />
+  <meta name="twitter:description" content="Тысячи медицинских книг и умный ИИ-библиотекарь, который мгновенно находит нужное." />
+  <meta name="twitter:image" content="https://khokhlobaron.netlify.app/og-image-v2.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Ультра-тёмная Editorial палитра */
+      --bg:           #050505;
+      --surface:      #111111;
+      --surface-alt:  #181818;
+      --border:       #262626;
+      --ink:          #ffffff;
+      --ink-muted:    #a3a3a3;
+      --ink-faint:    #525252;
+
+      --accent:       #ff4400;
+      --accent-hover: #ff5e22;
+      --accent-dim:   rgba(255, 68, 0, 0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILITY ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container-narrow { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .serif { font-family: 'Spectral', Georgia, serif; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo {
+      font-family: 'Spectral', Georgia, serif;
+      font-size: 22px; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: 30px;
+      padding: 10px 24px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none;
+      transition: all .2s ease;
+    }
+    .nav-cta:hover { background: var(--ink-muted); transform: scale(0.98); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding: 180px 0 100px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    /* Фоновое изображение для первого блока */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('wideBOOKS5.jpg');
+      background-size: 100% auto;
+      background-position: center 80px;
+      background-repeat: no-repeat;
+      opacity: 0.55; /* Сделали верхнее изображение немного ярче */
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.8) 50%, rgba(5,5,5,1) 100%);
+    }
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-pill {
+      display: inline-flex;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255, 68, 0, 0.7); 
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      background: transparent;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 84px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+      max-width: 1000px;
+      margin-left: auto; margin-right: auto;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8); 
+    }
+    .hero h1 em { color: var(--accent); font-style: italic; }
+    .hero-lead {
+      font-size: clamp(18px, 2vw, 22px);
+      color: var(--ink-muted);
+      max-width: 640px;
+      margin: 0 auto 48px;
+      line-height: 1.5;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8); 
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 12px;
+      padding: 18px 40px;
+      font-size: 16px; font-weight: 600;
+      text-decoration: none;
+      transition: all .2s ease;
+      box-shadow: 0 8px 24px rgba(255, 68, 0, 0.25);
+    }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255, 68, 0, 0.4); }
+
+    .hero-discord-hint {
+      margin-top: 32px;
+      font-size: 15px; color: var(--ink-muted);
+    }
+    .hero-discord-hint a {
+      color: var(--ink); font-weight: 500;
+      text-decoration: underline; text-decoration-color: var(--accent);
+      text-underline-offset: 4px; transition: color .2s;
+    }
+    .hero-discord-hint a:hover { color: var(--accent); }
+
+    /* ─── MASSIVE PHOTO SECTIONS ─── */
+    .mega-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mega-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .mega-grid { grid-template-columns: 4fr 6fr; gap: 80px; }
+      .mega-grid.alt { grid-template-columns: 6fr 4fr; }
+      .mega-grid.alt .mega-text { order: 2; }
+      .mega-grid.alt .mega-photo { order: 1; }
+    }
+
+    .mega-photo {
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .mega-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .mega-photo:hover img { transform: scale(1.02); }
+
+    .mega-label {
+      font-size: 13px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .15em;
+      color: var(--ink-faint); margin-bottom: 24px;
+      display: block;
+    }
+    .mega-title {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 300; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 32px;
+    }
+    .mega-desc {
+      font-size: 18px; color: var(--ink-muted);
+      line-height: 1.6; margin-bottom: 24px;
+    }
+    .mega-desc:last-of-type { margin-bottom: 0; }
+    .mega-desc strong { color: var(--ink); font-weight: 500; }
+
+    /* ─── TYPOGRAPHIC STATEMENT (IDEA 2) ─── */
+    .statement-section {
+      padding: 140px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+    }
+    .statement-title {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .statement-desc {
+      font-size: clamp(20px, 3vw, 28px);
+      color: var(--ink-muted);
+      line-height: 1.5;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .statement-desc strong { color: var(--ink); font-weight: 400; }
+
+    /* ─── BENTO BOXES (Pain & Features) ─── */
+    .bento-section { padding: 100px 0; border-bottom: 1px solid var(--border); }
+    .bento-header { text-align: center; margin-bottom: 64px; }
+    .bento-header h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 300; letter-spacing: -0.02em; }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .bento-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      display: flex; flex-direction: column;
+    }
+    .bento-card.highlight {
+      background: var(--surface-alt);
+      border-color: var(--accent);
+    }
+    .bento-number {
+      font-family: var(--serif);
+      font-size: 64px; line-height: 1; color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .bento-title {
+      font-size: 20px; font-weight: 600; margin-bottom: 12px;
+    }
+    .bento-card.highlight .bento-title { color: var(--accent); }
+    .bento-text {
+      font-size: 16px; color: var(--ink-muted); line-height: 1.6;
+    }
+
+    /* Pain List inside Bento */
+    .pain-list { list-style: none; margin-top: 24px; }
+    .pain-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 16px; color: var(--ink-muted); margin-bottom: 16px;
+    }
+    .pain-list li:last-child { margin-bottom: 0; }
+    .pain-list li::before {
+      content: '—'; color: var(--ink-faint); font-weight: 600;
+    }
+    .bento-card.highlight .pain-list li { color: var(--ink); }
+    .bento-card.highlight .pain-list li::before { color: var(--accent); content: '✓'; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 120px 0; 
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('widespread.png');
+      background-size: max(100%, 1200px) auto; 
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      opacity: 0.6; 
+      z-index: 0;
+    }
+    .cta-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,5,5,0) 0%, rgba(5,5,5,0.4) 60%, rgba(5,5,5,1) 100%);
+    }
+    .cta-section .container {
+      position: relative;
+      z-index: 1;
+    }
+    .cta-section h2 {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 300;
+      letter-spacing: -0.02em; margin-bottom: 24px;
+    }
+    .cta-text {
+      font-size: 20px; color: var(--ink-muted); max-width: 600px;
+      margin: 0 auto 48px;
+    }
+    .safety-notice {
+      max-width: 600px; margin: 48px auto 0;
+      background: rgba(5, 5, 5, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+      text-align: left;
+    }
+    .sn-title { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-faint); margin-bottom: 8px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border); padding: 40px 0;
+    }
+    footer .container {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .f-logo { font-family: var(--serif); font-size: 20px; font-weight: 600; text-decoration: none; color: var(--ink); }
+    .f-logo span { color: var(--accent); }
+    .f-copy { color: var(--ink-faint); font-size: 14px; }
+
+    @media (max-width: 768px) {
+      .bento-card { padding: 32px 24px; }
+      .hero { padding: 120px 0 80px; }
+      .statement-section { padding: 100px 0; }
+      
+      /* Адаптация нижнего CTA блока для мобильных устройств */
+      .cta-section { padding: 60px 0; }
+      .cta-bg { background-size: cover; } /* Отменяет принудительное расширение до 1200px */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <a href="#" class="nav-logo">Хохло<span>Барон</span></a>
+      <a href="apply.html" class="nav-cta">Внутрь канала</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-pill">Закрытое сообщество · 18+</div>
+      <h1 class="serif">
+        Ты очень сообразительный.<br>
+        Просто всё это время читаешь <em>не те книги.</em>
+      </h1>
+      <p class="hero-lead">
+        Единственное, что отличает тебя от опытного специалиста — качество и количество информации. Здесь собрано всё, чтобы закрыть этот разрыв.
+      </p>
+
+      <a href="apply.html" class="btn-primary">Подать заявку на вступление</a>
+
+      <p class="hero-discord-hint">
+        Или напиши <a href="https://discord.com/users/1521093405038350488" target="_blank" rel="noopener">боту</a> фразу «хочу найти ХохлоБарона», чтобы получить гостевой доступ.
+      </p>
+    </div>
+  </section>
+
+  <!-- MEGA SECTION 1: LIBRARIAN & IDEA 1 -->
+  <section class="mega-section">
+    <div class="container">
+      <div class="mega-grid">
+        <div class="mega-text">
+          <span class="mega-label">Библиотека</span>
+          <h2 class="serif mega-title">Сотни часов поиска литературы — уже позади.</h2>
+          <p class="mega-desc">
+            В канале собраны тысячи медицинских книг — и умный ИИ-библиотекарь, который мгновенно находит нужное. Тебе не нужно знать названий. Не нужно понимать, с чего начать.
+          </p>
+          <p class="mega-desc">
+            Спроси — и получи <strong>готовый маршрут</strong> за минуты, а не за дни скроллинга форумов.
+          </p>
+        </div>
+        <div class="mega-photo">
+          <img src="indexSuitPoint.jpg" alt="Павел с саквояжем в библиотеке">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHIC STATEMENT: IDEA 2 -->
+  <section class="statement-section">
+    <div class="container">
+      <h2 class="serif statement-title">Не только для врачей.</h2>
+      <p class="statement-desc">
+        Библиотека будет полезна любому, кто стремится понять <strong>свое тело, мышление, а затем и мир в целом</strong>. Медицина долго была закрытым клубом с непонятным языком — ХохлоБарон делает её доступной для каждого мыслящего человека.
+      </p>
+    </div>
+  </section>
+
+  <!-- MEGA SECTION 2: ABOUT PAUL -->
+  <section class="mega-section">
+    <div class="container-narrow">
+      <div class="mega-text" style="text-align: center;">
+        <span class="mega-label">Павел Хохлов</span>
+        <h2 class="serif mega-title">Я иду этим путём и совершаю ошибки вслух.</h2>
+        <p class="mega-desc">
+          Я не продаю курс «стань специалистом за месяц». Я сам нахожусь на пути — фиксирую всё, что реально работает, и всё, что оказалось пустой тратой времени.
+        </p>
+        <p class="mega-desc">
+          В канале я думаю вслух: что читаю, что выбросил, что изменил в своём подходе. Наблюдать за чужими тупиками и открытиями в реальном времени — значит <strong>прогрессировать в десятки раз быстрее</strong>, чем в одиночку.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENTO: PAIN & SOLUTION -->
+  <section class="bento-section">
+    <div class="container-narrow">
+      <div class="bento-grid">
+        <div class="bento-card">
+          <h3 class="bento-title">Без ХохлоБарона</h3>
+          <p class="bento-text">Ты тратишь энергию на поиск, а не на понимание.</p>
+          <ul class="pain-list">
+            <li>Открываешь 10 вкладок и не закрываешь ни одну</li>
+            <li>Не знаешь, правильно ли выстроен твой путь</li>
+            <li>Прокрастинируешь, потому что парализует выбор</li>
+            <li>Паникуешь перед сессией</li>
+          </ul>
+        </div>
+        <div class="bento-card highlight">
+          <h3 class="bento-title">Внутри канала</h3>
+          <p class="bento-text">Решение уже принято за тебя — остаётся только читать.</p>
+          <ul class="pain-list">
+            <li>Один запрос боту = готовый список книг</li>
+            <li>Один источник вместо хаоса из ссылок</li>
+            <li>Точный план подготовки без воды</li>
+            <li>Живой пример пути автора</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENTO: GUARANTEES -->
+  <section class="bento-section" style="border-bottom: none; padding-top: 0;">
+    <div class="container-narrow">
+      <div class="bento-grid">
+        <div class="bento-card">
+          <div class="bento-number">100+</div>
+          <h3 class="bento-title">Часов сэкономлено</h3>
+          <p class="bento-text">Тебе не нужно начинать с нуля — маршрут уже проложен, а база структурирована.</p>
+        </div>
+        <div class="bento-card">
+          <div class="bento-number">∞</div>
+          <h3 class="bento-title">Отбор лучшего</h3>
+          <p class="bento-text">Библиотека живёт: слабые материалы вычищаются, сильные остаются и дополняются.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    
+    <div class="container">
+      <h2 class="serif">Принимаем <em>не все заявки.</em></h2>
+      <p class="cta-text">В связи с участившимися проверками платформ мы ограничиваем приём. Если ты готов — вся инструкция на странице.</p>
+
+      <a href="apply.html" class="btn-primary">Перейти к оформлению</a>
+
+      <div class="safety-notice">
+        <p class="sn-title">Защита доступа</p>
+        <p class="bento-text">В случае блокировок серверов все участники получают резервные инвайты. Твои данные и доступ к базе знаний не пропадут.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <a href="#" class="f-logo">Хохло<span>Барон</span></a>
+      <span class="f-copy">Discord Community.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
