@@ -385,24 +385,30 @@
       .bento-card { padding: 32px 24px; }
       .statement-section { padding: 100px 0; }
       
-      /* Поднимаем текст выше, чтобы освободить третью четверть изображения */
-      .hero { padding: 85px 0 80px; }
+      /* Структура текста и отступы полностью сохранены как в оригинале (без сжатия) */
+      .hero { padding: 50px 0 100px; }
+      .hero-pill { margin-bottom: 32px; }
+      .hero h1 { font-size: clamp(40px, 7vw, 84px); margin-bottom: 32px; }
+      .hero-lead { margin-bottom: 48px; }
 
-      /* Отдельное фото, кадрированное под портретный экран */
+      /* Фоновое изображение */
       .hero-bg {
         background-image: url('wideBOOKS5phone.jpg?v=1');
         background-size: cover;
-        background-position: center top;
+        /* Опустили саму картинку ниже (на 200px), чтобы лицо ушло из-под оригинального текста */
+        background-position: center 200px;
         opacity: 0.95;
       }
-      /* Градиент скорректирован: уменьшено начальное затемнение сверху с 1 до 0.8 для легкого увеличения яркости */
+      
+      /* 5-ступенчатый градиент: вверху яркость увеличена (0.8 вместо 1), 
+         светлая третья четверть смещена ниже под опустившуюся картинку */
       .hero-bg::after {
         background: linear-gradient(
           to bottom, 
           rgba(5, 5, 5, 0.8) 0%, 
-          rgba(5, 5, 5, 0.85) 45%, 
-          rgba(5, 5, 5, 0.1) 60%, 
-          rgba(5, 5, 5, 0.1) 75%, 
+          rgba(5, 5, 5, 0.85) 35%, 
+          rgba(5, 5, 5, 0.05) 75%, 
+          rgba(5, 5, 5, 0.05) 85%, 
           rgba(5, 5, 5, 1) 100%
         );
       }
