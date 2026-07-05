@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ХохлоБарон — медицинская библиотека и сообщество</title>
+  <title>ХохлоБарон — medical library and community</title>
   <meta name="description" content="Тысячи медицинских книг и умный ИИ-библиотекарь, который мгновенно находит нужное. Закрытое сообщество для тех, кто хочет понять своё тело и мир." />
 
   <!-- Иконки -->
@@ -383,44 +383,53 @@
 
     @media (max-width: 768px) {
       .bento-card { padding: 32px 24px; }
+      .hero { padding: 90px 0 80px; }
       .statement-section { padding: 100px 0; }
-      
-      /* Структура текста и отступы полностью сохранены как в оригинале (без сжатия) */
-      .hero { padding: 50px 0 100px; }
-      .hero-pill { margin-bottom: 32px; }
-      .hero h1 { font-size: clamp(40px, 7vw, 84px); margin-bottom: 32px; }
-      .hero-lead { margin-bottom: 48px; }
 
-      /* Фоновое изображение */
+      /* Уплотняем блок с плашкой/заголовком/текстом, чтобы он весь поднялся выше */
+      .hero-pill { margin-bottom: 20px; }
+      .hero h1 { margin-bottom: 20px; }
+      .hero-lead { margin-bottom: 24px; }
+      /* Увеличенный отступ перед кнопкой — это и есть "первый блок", выросший вверх:
+         текст поднимается в тёмную зону, а картинка с кнопкой уходят чуть ниже, не меняясь сами по себе */
+      .hero .btn-primary { margin-top: 238px; }
+
+      /* Отдельное фото, кадрированное под портретный экран.
+         Фиксируем размер картинки и крепим её к низу блока — при увеличении
+         высоты .hero сама картинка не растягивается и не меняется, просто
+         сдвигается ниже вместе с кнопкой, а сверху освобождается тёмное пространство под текст. */
       .hero-bg {
+        top: auto;
+        bottom: 0;
+        height: 768px;
         background-image: url('wideBOOKS5phone.jpg?v=1');
         background-size: cover;
-        /* Опустили саму картинку ниже (на 200px), чтобы лицо ушло из-под оригинального текста */
-        background-position: center 200px;
-        opacity: 0.95;
+        background-position: center top;
+        opacity: 0.95; /* Повысили общую непрозрачность, так как теперь есть верхнее затемнение */
       }
-      
-      /* 5-ступенчатый градиент: вверху яркость увеличена (0.8 вместо 1), 
-         светлая третья четверть смещена ниже под опустившуюся картинку */
+      /* Усовершенствованный 5-ступенчатый градиент: полная темнота на самом верху (0%), 
+         затемнение до 45% высоты, яркий просвет в третьей четверти (60-75%) и уход в 100% темноту снизу */
       .hero-bg::after {
         background: linear-gradient(
           to bottom, 
-          rgba(5, 5, 5, 0.8) 0%, 
-          rgba(5, 5, 5, 0.85) 35%, 
-          rgba(5, 5, 5, 0.05) 75%, 
-          rgba(5, 5, 5, 0.05) 85%, 
+          rgba(5, 5, 5, 1) 0%, 
+          rgba(5, 5, 5, 0.85) 45%, 
+          rgba(5, 5, 5, 0.1) 60%, 
+          rgba(5, 5, 5, 0.1) 75%, 
           rgba(5, 5, 5, 1) 100%
         );
       }
 
       /* Адаптация нижнего CTA блока для мобильных устройств */
       .cta-section { padding: 60px 0; }
+      /* Отдельное фото, кадрированное под портретный экран */
       .cta-bg {
         background-image: url('widespreadphone.jpg?v=1');
         background-size: cover;
         background-position: center bottom;
-        opacity: 0.85;
+        opacity: 0.85; /* Нижняя картинка остается светлой и отчетливее */
       }
+      /* Сдвигаем градиент, чтобы проявить больше светлой картинки снизу */
       .cta-bg::after {
         background: linear-gradient(to top, rgba(5,5,5,0) 0%, rgba(5,5,5,0.4) 55%, rgba(5,5,5,1) 100%);
       }
