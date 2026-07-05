@@ -343,13 +343,29 @@
       font-size: 20px; color: var(--ink-muted); max-width: 600px;
       margin: 0 auto 48px;
     }
+    
+    /* Прозрачный стиль для кнопки конкретно в блоке CTA */
+    .cta-section .btn-primary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: none;
+    }
+    .cta-section .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--ink);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Прозрачный блок Защиты доступа без рамок */
     .safety-notice {
       max-width: 600px; margin: 48px auto 0;
-      background: rgba(5, 5, 5, 0.6);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      border-radius: 0; padding: 24px 0 0 0;
       text-align: left;
     }
     .sn-title { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-faint); margin-bottom: 8px; }
@@ -370,29 +386,30 @@
       .hero { padding: 120px 0 80px; }
       .statement-section { padding: 100px 0; }
 
-      /* Отдельное фото, кадрированное под портретный экран — снова используем cover */
+      /* Отдельное фото, кадрированное под портретный экран */
       .hero-bg {
         background-image: url('wideBOOKS5phone.jpg?v=1');
         background-size: cover;
         background-position: center top;
-        opacity: 0.7; /* Также сохраняем повышенную яркость и на смартфонах */
+        opacity: 0.4; /* Сделали верхнюю картинку темнее */
       }
-      /* Смещаем градиент ниже для верхней картинки (чернота начинается позже — с 70%) */
+      /* Делаем градиент плотнее, чтобы верхняя картинка сильнее уходила в затемнение */
       .hero-bg::after {
-        background: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.4) 70%, rgba(5,5,5,1) 100%);
+        background: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.8) 50%, rgba(5,5,5,1) 100%);
       }
 
       /* Адаптация нижнего CTA блока для мобильных устройств */
       .cta-section { padding: 60px 0; }
-      /* Отдельное фото, кадрированное под портретный экран — снова используем cover */
+      /* Отдельное фото, кадрированное под портретный экран */
       .cta-bg {
         background-image: url('widespreadphone.jpg?v=1');
         background-size: cover;
         background-position: center bottom;
+        opacity: 0.85; /* Сделали нижнюю картинку светлее и отчетливее */
       }
-      /* Смещаем градиент выше для нижней картинки (чернота наступает раньше — уже к 35%) */
+      /* Сдвигаем градиент, чтобы проявить больше светлой картинки снизу */
       .cta-bg::after {
-        background: linear-gradient(to top, rgba(5,5,5,0) 0%, rgba(5,5,5,0.6) 35%, rgba(5,5,5,1) 100%);
+        background: linear-gradient(to top, rgba(5,5,5,0) 0%, rgba(5,5,5,0.4) 55%, rgba(5,5,5,1) 100%);
       }
     }
   </style>
@@ -454,7 +471,7 @@
     <div class="container">
       <h2 class="serif statement-title">Не только для врачей.</h2>
       <p class="statement-desc">
-        Библиотека будет полезна любому, кто стремится понять <strong>свое тело, мышление, а затем и мир в целом</strong>. Медицина долго была закрытым клубом с непонятным языком — ХохлоБарон делает её доступной для каждого мыслящего человека.
+        Библиотека будет полезна любому, кто стремится понять <strong>свое тело, мышление, а затем и мир в целом</strong>. Медицина долго была закрыстым клубом с непонятным языком — ХохлоБарон делает её доступной для каждого мыслящего человека.
       </p>
     </div>
   </section>
@@ -548,4 +565,3 @@
 
 </body>
 </html>
-
