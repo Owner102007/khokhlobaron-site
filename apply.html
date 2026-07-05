@@ -551,6 +551,11 @@
   @media (max-width: 600px) {
     header {
       padding: 140px 0 50px;
+      /* Отдельное фото, кадрированное под портретный экран — снова используем cover */
+      background-image:
+        linear-gradient(to bottom, rgba(18, 10, 13, 0.1) 0%, rgba(18, 10, 13, 0.85) 75%, var(--bg) 100%),
+        url('TimeIsOURSphone.jpg');
+      background-size: cover;
       background-position: center 25%;
     }
     .step { flex-direction: row; gap: 14px; }

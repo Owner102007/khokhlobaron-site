@@ -368,10 +368,22 @@
       .bento-card { padding: 32px 24px; }
       .hero { padding: 120px 0 80px; }
       .statement-section { padding: 100px 0; }
-      
+
+      /* Отдельное фото, кадрированное под портретный экран — снова используем cover */
+      .hero-bg {
+        background-image: url('wideBOOKS5phone.jpg');
+        background-size: cover;
+        background-position: center top;
+      }
+
       /* Адаптация нижнего CTA блока для мобильных устройств */
       .cta-section { padding: 60px 0; }
-      .cta-bg { background-size: cover; } /* Отменяет принудительное расширение до 1200px */
+      /* Отдельное фото, кадрированное под портретный экран — снова используем cover */
+      .cta-bg {
+        background-image: url('widespreadphone.jpg');
+        background-size: cover;
+        background-position: center bottom;
+      }
     }
   </style>
 </head>
